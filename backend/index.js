@@ -41,8 +41,6 @@ app.use("/api/rent-requests", rentRequestsRoutes);
 app.use("/api/proof", proofRoutes);
 
 
-
-
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
