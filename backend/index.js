@@ -39,6 +39,9 @@ app.use("/api/india", locationRoutes);
 app.use("/api/rent-requests", rentRequestsRoutes);
 app.use("/api/proof", proofRoutes);
 
+app.get('/', (req, res) => {
+  res.send('✅ Backend is running successfully!');
+});
 
 
 // Start Server

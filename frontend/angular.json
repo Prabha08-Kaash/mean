@@ -11,16 +11,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-              "outputPath": "dist/frontend/browser/browser",
+              "outputPath": "dist/frontend",
+  "index": "src/index.html",
+  "main": "src/main.ts",
 
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles"
               ]
             },
-            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -64,7 +65,8 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server"
+,
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production"
@@ -101,3 +103,5 @@
     }
   }
 }
+
+
