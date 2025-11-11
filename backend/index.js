@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(cors({
      origin: [
       "http://localhost:4200",
+      "https://mean-frontend-409n.onrender.com",
      ],
   credentials: true
 }));
@@ -39,9 +40,7 @@ app.use("/api/india", locationRoutes);
 app.use("/api/rent-requests", rentRequestsRoutes);
 app.use("/api/proof", proofRoutes);
 
-app.get('/', (req, res) => {
-  res.send('✅ Backend is running successfully!');
-});
+
 
 
 // Start Server
