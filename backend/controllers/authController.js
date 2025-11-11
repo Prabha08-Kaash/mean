@@ -32,8 +32,8 @@ exports.register = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,                // Frontend JavaScript se access nahi kar sakta
-      secure: process.env.NODE_ENV === "production", // only HTTPS in production
-      sameSite: "Strict",            // CSRF protection
+      secure: "true", // only HTTPS in production
+      sameSite: "None",            // CSRF protection
       maxAge: 10 * 24 * 60 * 60 * 1000 // 10 days
     });
 
@@ -89,7 +89,7 @@ exports.login = async (req, res) => {
     // ✅ Send token as cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "None",
       maxAge: 10 * 24 * 60 * 60 * 1000
     });
@@ -127,7 +127,7 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "None"
   });
   res.status(200).json({ success: true, message: "Logged out successfully" });
