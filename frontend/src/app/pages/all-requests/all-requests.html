@@ -1,0 +1,196 @@
+<app-header></app-header>
+<main>
+
+    <div class="container">
+
+
+        <div class="container">
+            <section class="hero-section  ">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <i class="fa-solid fa-eye  me-2 fa-2x text-primary"></i>
+                    </div>
+                    <div class="text-start heading">
+                        <h2 class="mb-0">All Requests</h2>
+                        <p class="description">Manage all requests, at one place only
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- card length count section -->
+        <div class="container ">
+            <section class="card-section mt-4">
+                <div class="admin-cards">
+                    <div class="row gap-2">
+
+                        <div class=" col-md-4 m-0 ">
+                            <div class="card overflow-hidden">
+                                <div class="card-body ">
+                                    <h5 class="card-title">All Incoming Request</h5>
+                                    <p class="card-text">{{ownerRequests.length}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 m-0">
+                            <div class="card overflow-hidden">
+                                <div class="card-body ">
+                                    <h5 class="card-title">All Outgoing Requests</h5>
+                                    <p class="card-text">{{userRequests.length}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- tab-section -->
+        <div class="container ">
+            <section class="tab-section mt-4">
+
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item d-flex justify-content-center align-items-center  nav-link active p-2"
+                        role="tab" id="btn1-tab" data-bs-toggle="tab" data-bs-target="#btn1-content"
+                        role="presentation">
+                        All Incoming Request
+                    </li>
+                    <li class="nav-item d-flex justify-content-center align-items-center nav-link p-2" role="tab"
+                        id="btn2-tab" data-bs-toggle="tab" data-bs-target="#btn2-content" role="presentation">
+                        All Outgoing Requests
+                    </li>
+                </ul>
+
+                <!-- Content -->
+                <div class="tab-content mt-4 p-3" id="myTabContent">
+                    <!-- All incoming request -->
+                    <div class="tab-pane fade show active" id="btn1-content" role="tabpanel">
+                        <h3 class="mb-3">All Incoming Requests</h3>
+
+                        <div class="card w-100 shadow-sm">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle text-center mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">Owner Id</th>
+                                                <th scope="col">Renter Id</th>
+                                                <th scope="col">Item Id</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">View Item</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let req of ownerRequests">
+                                                <tr *ngIf="req?.itemId">
+                                                    <td class="small">
+                                                        {{ req.ownerId?.name }}<br>{{ req.ownerId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        {{ req.renterId?.name }}<br>{{ req.renterId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        {{ req?.itemId?.title }} <br> {{ req?.itemId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        ₹{{ req?.totalPrice }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        <span [ngClass]="{
+                'badge bg-success': req.status === 'Approved',
+                'badge bg-warning text-dark': req.status === 'Pending',
+                'badge bg-danger': req.status === 'Rejected'
+              }">
+                                                            {{ req?.status }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="small">
+                                                        <button type="button" class="btn btn-success"
+                                                            (click)="goToItemDetail(req?.itemId?._id)">Explore</button>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All outgoing request -->
+                    <div class="tab-pane fade show " id="btn2-content" role="tabpanel">
+                        <h3 class="mb-3">All Outgoing Requests</h3>
+
+                        <div class="card w-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle text-center mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">Renter Id</th>
+                                                <th scope="col">Owner Id</th>
+                                                <th scope="col">Item Id</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">View Item</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let req of userRequests">
+
+                                                <tr *ngIf="req?.itemId">
+                                                    <td class="small">
+                                                        {{ req.renterId?.name }}<br>{{ req.renterId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        {{ req.ownerId?.name }}<br>{{ req.ownerId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        {{ req?.itemId?.title }} <br> {{ req?.itemId?._id }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        ₹{{ req?.totalPrice }}
+                                                    </td>
+
+                                                    <td class="small">
+                                                        <span [ngClass]="{
+                'badge bg-success': req.status === 'Approved',
+                'badge bg-warning text-dark': req.status === 'Pending',
+                'badge bg-danger': req.status === 'Rejected'
+              }">
+                                                            {{ req?.status }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="small">
+                                                        <button type="button" class="btn btn-success"
+                                                            (click)="goToItemDetail(req?.itemId?._id)">Explore</button>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </section>
+        </div>
+
+    </div>
+</main>

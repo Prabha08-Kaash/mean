@@ -1,0 +1,54 @@
+<app-header></app-header>
+<main class=" min-vh-100">
+    <div class="container py-5">
+        <div class="row align-items-center gy-5">
+
+            <!-- stacked thumbnails -->
+            <div class="col-lg-6 d-none d-lg-flex flex-column gap-3 thumbnails">
+                <div class="thumb-row d-flex gap-3">
+                    <img [src]="small1" alt="thumb1" class="rounded w-50 img-fluid">
+                    <img [src]="small2" alt="thumb2" class="rounded w-25 img-fluid">
+                </div>
+                <div class="thumb-large mt-1">
+                    <img [src]="small3" alt="thumb3" class="rounded img-fluid w-100">
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="col-lg-4 col-md-6">
+                <small class="muted-label">Contact or Help Section</small>
+                <h2 class="display-title mt-2">
+                    Need Help or Have a Question?
+                </h2>
+                <p class="lead desc">
+                    We’re here to assist you!
+                    If you face any issue regarding a product, rental, return, or payment — feel free to reach us. </p>
+
+                <div class="features mt-4">
+                    <div class="feature d-flex align-items-start mb-3">
+                        <div class="badge-circle me-3">01</div>
+                        <div>
+                            <h6 class="feature-title mb-1">
+                                📞 Phone</h6>
+                            <p class="feature-desc mb-0">+91 [your number]
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature d-flex align-items-start">
+                        <div class="badge-circle badge-alt me-3">02</div>
+                        <div>
+                            <h6 class="feature-title mb-1">📧 Email</h6>
+                            <p class="feature-desc mb-0">support@[yourwebsitename].com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>If you have any problem, then please reach out to us .. we’ll get back to you shortly.</p>
+
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

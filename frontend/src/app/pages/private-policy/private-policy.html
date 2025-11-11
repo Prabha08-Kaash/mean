@@ -1,0 +1,61 @@
+<app-header></app-header>
+<main class=" min-vh-100">
+    <div class="container py-5">
+        <div class="row align-items-center gy-4">
+
+            <!-- stacked thumbnails -->
+            <div class="col-lg-3 d-none d-lg-flex flex-column gap-3 thumbnails">
+                <div class="thumb-row d-flex gap-3">
+                    <img [src]="small1" alt="thumb1" class="rounded w-50 img-fluid">
+                    <img [src]="small2" alt="thumb2" class="rounded w-50 img-fluid">
+                </div>
+                <div class="thumb-large mt-1">
+                    <img [src]="small3" alt="thumb3" class="rounded img-fluid w-100">
+                </div>
+            </div>
+
+            <!-- large image  -->
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="main-photo mx-auto">
+                    <img [src]="main" alt="main" class="rounded img-fluid">
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="col-lg-5 col-md-6">
+                <small class="muted-label">Private Policy</small>
+                <h2 class="display-title mt-2">
+                    At GharSeRent, we value your trust and respect your privacy
+                </h2>
+                <p class="lead desc">
+                    We collect basic information like your name, contact details, and payment info only to manage your
+                    rentals and returns </p>
+
+                <div class="features mt-4">
+                    <div class="feature d-flex align-items-start mb-3">
+                        <div class="badge-circle me-3">01</div>
+                        <div>
+                            <h6 class="feature-title mb-1">Your Personal Data Is Important For Us, That's why We Protect
+                                It</h6>
+                            <p class="feature-desc mb-0">We do not share or sell your personal data with anyone.
+                                All your details are stored securely, and transactions are protected.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature d-flex align-items-start">
+                        <div class="badge-circle badge-alt me-3">02</div>
+                        <div>
+                            <h6 class="feature-title mb-1">Collecting Data To Improve Your Experience</h6>
+                            <p class="feature-desc mb-0">By using our website, you agree to our policy of collecting and
+                                using data to improve your experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <p>For any questions, contact us at 7894561233 support@gharserent.com</p>
+
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

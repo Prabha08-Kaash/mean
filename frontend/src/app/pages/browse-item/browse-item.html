@@ -1,0 +1,154 @@
+<app-header></app-header>
+
+<main>
+
+  <div class="container">
+    <!-- hero section -->
+    <section class="hero-section  ">
+      <div class="d-flex align-items-center">
+        <div class="text-center">
+          <i class="fa-solid fa-cart-shopping  me-2 fa-2x text-primary"></i>
+        </div>
+        <div class="text-start heading">
+          <h2 class="mb-0">Browse Item</h2>
+          <p *ngIf="userStoreService.getCurrentUser()() as user" class="description">Welcome back, {{user.name}} </p>
+        </div>
+       
+      </div>
+    </section>
+
+    <!-- card section -->
+    <div class="container mb-0 p-0">
+      <section class="card-section mt-4">
+        <div class="admin-cards d-flex align-items-center">
+          <div class="card w-100">
+            <div class="card-body ">
+
+              <form>
+                <div class="row d-flex gap-2 justify-content-between ">
+                  <div class=" col-md-5">
+
+                    <input type="search" class="form-control input-outline-color" name="searchText"
+                      placeholder="Search item, city, state, location" [(ngModel)]="searchText"
+                      (keyup.enter)="onSearch()" (input)="onSearch()" style="cursor: pointer;">
+
+                  </div>
+
+                  <div class="col-md-3 mt-1">
+                    <div class="dropdown w-100">
+                      <button
+                        class="btn btn-outline-secondary  dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                        type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ selectedCategoryName || 'All Categories' }}
+                      </button>
+
+                      <ul class="dropdown-menu w-100" aria-labelledby="categoryDropdown"
+                        style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                        <li>
+                          <a class="dropdown-item" (click)="selectCategory(null, 'All Categories')">
+                            All Categories
+                          </a>
+                        </li>
+                        <li *ngFor="let c of categories">
+                          <a class="dropdown-item" (click)="selectCategory(c._id, c.name)">
+                            {{ c.name }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+
+                 <div class="col-md-3 mt-1">
+  <div class="dropdown w-100">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+      type="button"
+      id="priceDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
+      {{ selectedPriceRangeLabel || 'Price Range' }}
+    </button>
+
+    <ul class="dropdown-menu w-100" aria-labelledby="priceDropdown">
+      <li><a class="dropdown-item" (click)="selectPriceRange('', 'All Prices')">All Prices</a></li>
+      <li><a class="dropdown-item" (click)="selectPriceRange('1-100', '₹1 - ₹100')">₹1 - ₹100</a></li>
+      <li><a class="dropdown-item" (click)="selectPriceRange('100-200', '₹100 - ₹200')">₹100 - ₹200</a></li>
+      <li><a class="dropdown-item" (click)="selectPriceRange('200-500', '₹200 - ₹500')">₹200 - ₹500</a></li>
+      <li><a class="dropdown-item" (click)="selectPriceRange('500-1000', '₹500 - ₹1000')">₹500 - ₹1000</a></li>
+      <li><a class="dropdown-item" (click)="selectPriceRange('1000-3000', '₹1000 - ₹3000')">₹1000 - ₹3000</a></li>
+    </ul>
+  </div>
+</div>
+
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+
+    <div class="container p-0 d-flex justify-content-center align-items-center  text-center">
+      <section class="item-section">
+
+        <div class="item-section-content w-100">
+          <div class="row w-100 gy-4  items">
+            <div class="col-lg-3 col-md-4 col-sm-6  p-2" 
+            [ngClass]="{
+    'col-12': items.length < 2, 
+    'col-6': items.length >= 2
+  }"
+   *ngFor="let item of items | slice:0:8">
+              <div class="card " (click)="goToItemDetail(item._id)" style="cursor: pointer;">
+                <div class="image-box">
+                  <img [src]="item.photo || 'assets/default-image.png'" alt="Item Image">
+
+                  <div class="badge-box">
+                    <span class="badge rounded-pill text-bg-success">{{ item.category?.name }} </span>
+                  </div>
+                </div>
+                <div class="item-card-details  text-start p-2" style="line-height: 1;">
+                  <h5 class="item-title m-0">{{ item.title }}</h5>
+                  <small class="item-location">{{item.owner?.city}}, {{ getStateName(item.owner?.state)}}</small>
+                </div>
+                <h6 class="mb-0 text-start">
+                  <small class="posted-label text-muted ms-2 owner-name">Posted by: <strong>{{ item.owner?.name
+                      }}</strong> </small>
+                </h6>
+                <div class="item-card-footer d-flex justify-content-between align-items-center p-2 pt-3">
+                  <strong>₹<span style="color: green;"> {{ item.price }}</span><small
+                      style="color: rgb(130, 131, 130);">
+                      /{{ item.unit}}</small></strong>
+                                <span class="item-createdAt">{{ getRelativeDate(item.createdAt) }}</span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <nav *ngIf="totalPages > 1" class=" d-flex justify-content-center align-items-center">
+      <ul class="pagination ">
+        <li class="page-item me-3" [class.disabled]="currentPage === 1">
+          <button class="page-link " (click)="changePage(currentPage - 1)">Previous</button>
+        </li>
+        <li class="page-item" *ngFor="let page of pagesArray" [class.active]="page === currentPage">
+          <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+        </li>
+        <li class="page-item ms-3" [class.disabled]="currentPage === totalPages">
+          <button class="page-link text-bg-success " (click)="changePage(currentPage + 1)">Next</button>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</main>
+
+<app-footer></app-footer>

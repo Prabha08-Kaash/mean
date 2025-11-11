@@ -1,0 +1,30 @@
+main {
+  min-height: 100vh; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background-color: #f8f9fa; 
+  padding-top: 70px; 
+
+  .form-wrapper {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+
+    .card {
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h4 {
+      font-weight: 600;
+      color: black; // Bootstrap green
+    }
+
+    button {
+      font-weight: 500;
+      border-radius: 8px;
+    }
+  }
+}

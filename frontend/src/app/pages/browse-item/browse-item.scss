@@ -1,0 +1,350 @@
+
+$secondary-color: #d2d3d4;  // Example Bootstrap secondary grayish color
+
+main {
+    margin-top: 80px;
+    background: #fafafb;
+    min-height: 100vh; 
+    flex-grow: 1; 
+}
+
+/* Hero Section */
+.hero-section {
+  padding-top: 30px;
+
+  h2 {
+font-size: 1.8rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+}
+
+.container {
+  background: #fafafb;
+
+  .item-section {
+    padding: 2rem 0rem;
+    background-color: #fafafb;
+    text-align: center;
+
+
+    .item-section-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .card {
+        border: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+          transform: translateY(-6px);
+          box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-box {
+          aspect-ratio: 4/4;
+          width: 100%;
+          height: auto;
+          border-radius: 12px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          object-fit: cover;
+          position: relative;
+          padding: 5px;
+          box-sizing: border-box;
+          margin: 0 auto;
+          
+
+          img {
+            width: 100%;
+            /* image width ko box se bahar na jane de */
+            height: 100%;
+            /* image height ko box ke andar rakhe */
+            object-fit: cover;
+            object-position: center;
+          }
+
+          .badge-box {
+           position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            font-weight: 400;
+
+            .badge {
+              display: inline-block;
+              padding: 6px 8px;
+              font-size: 0.7rem;
+            }
+          }
+
+        }
+
+         .item-createdAt {
+            position: absolute;
+            bottom: 9px;
+            right: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgb(141, 140, 140);
+          }
+      }
+    }
+
+  }
+
+}
+
+.item-title,
+.item-location,
+.owner-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Filter Section (Search + Dropdowns) */
+.card-section {
+  .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+
+    form {
+      .row {
+        gap: 10px;
+
+        input,
+        select {
+          border-radius: 8px;
+          height: 45px;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+}
+
+/* Pagination */
+.pagination {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 70px;
+
+  .page-item {
+    .page-link {
+      border-radius: 6px;
+      padding: 6px 12px;
+      transition: all 0.2s ease;
+color: black;
+      &:hover {
+        background-color: #198754;
+        color: white;
+      }
+    }
+
+    &.active .page-link {
+      background-color: #198754;
+      color: white;
+      border: none;
+    }
+  }
+}
+
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1050;
+}
+
+.input-outline-color {
+  border: 1px solid var(--bs-secondary); /* same as Bootstrap secondary color */
+}
+
+
+@media (max-width: 576px) {
+  .item-section {
+    padding: 2rem 0rem;
+
+    .item-section-header {
+      .item-section-title {
+        font-size: 1.7rem !important;; 
+      }
+
+      .item-section-subtitle {
+        font-size: 1.2rem !important;;
+      }
+    }
+
+    .items {
+      row-gap: 1.2rem;
+      justify-content: center;
+
+      .card {
+        width: 100%;
+        max-width: 160px;
+        margin: 0 auto;
+        box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.08);
+
+        .image-box {
+          aspect-ratio: 4 / 3;
+          width: 100%;
+          height: auto;
+/* 🔽 ADD THIS BELOW 🔽 */
+          .badge-box {
+            top: 10px !important;
+            left: 15px !important;
+            padding: 0 !important;
+            border-radius: 40px;
+
+            .badge {
+              padding: 3px 5px !important;
+              font-size: 0.6rem !important;
+              border-radius: 4px !important;
+            }
+          }
+
+         
+
+        }
+
+
+        .item-card-details {
+          h5 {
+            font-size: 0.9rem;
+          }
+
+          small {
+            font-size: 0.7rem;
+          }
+        }
+
+        h6 {
+          font-size: 0.75rem;
+        }
+
+        .item-card-footer {
+          padding: 0.3rem 0.6rem;
+          font-size: 0.8rem;
+
+         .item-createdAt {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: rgb(141, 140, 140);
+          }
+        }
+      }
+    }
+  }
+
+.pagination {
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+
+  .page-item {
+    .page-link {
+      border-radius: 6px;
+      transition: all 0.2s ease;
+       font-size: 0.6rem; /* text smaller */
+            padding: 2px 6px;  /* less space around text */
+
+      &:hover {
+        background-color: #198754;
+        color: white;
+      }
+    }
+
+    &.active .page-link {
+      background-color: #198754;
+      color: white;
+      border: none;
+     
+    }
+  }
+}
+
+}
+
+
+@media (max-width: 576px) {
+.hero-section {
+  padding-top: 30px;
+
+  h2 {
+font-size: 1.4rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+}
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+.item-section {
+    padding: 2.5rem 0rem;
+
+    .item-section-header {
+      .item-section-title {
+        font-size: 1.8rem;
+      }
+
+      .item-section-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .items {
+      justify-content: center;
+
+      .card {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+
+        .image-box {
+          aspect-ratio: 4 / 3;
+          width: 100%;
+          height: auto;
+        }
+
+        .item-card-details {
+          h5 {
+            font-size: 1rem;
+          }
+
+          small {
+            font-size: 0.8rem;
+          }
+        }
+
+        .item-card-footer {
+          padding: 0.4rem 0.8rem;
+
+          button {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+// Use bootstrap variables if available, else fallback colors
+$accent: #0b6b5f; 
+$muted: #6c757d;
+$badge-bg: #f0f6f5;
+$badge-alt-bg: #fff6e6;
+
+main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background-color: #f9fafb; 
+  padding-top: 80px; 
+  box-sizing: border-box;
+}
+
+
+.container {
+  max-width: 1200px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 5rem 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+// left thumbnails style
+.thumbnails {
+  .thumb-row img {
+    object-fit: cover;
+    height: 100px;
+  }
+
+  .thumb-large img {
+    object-fit: cover;
+    height: 260px;
+  }
+}
+
+
+
+// text content
+.muted-label {
+  color: $muted;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.display-title {
+  font-size: 1.8rem;
+  line-height: 1.05;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #102626;
+}
+
+.desc {
+  color: #6b7a77;
+  max-width: 36rem;
+}
+
+// features
+.features {
+  .feature {
+    .badge-circle {
+      min-width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #0b6b5f;
+      background: $badge-bg;
+      box-shadow: 0 4px 12px rgba(11,107,95,0.06);
+    }
+
+    .badge-alt {
+      color: #d98200;
+      background: $badge-alt-bg;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      margin: 0;
+      color: #143737;
+    }
+
+    .feature-desc {
+      color: #6b7a77;
+      font-size: 0.92rem;
+    }
+  }
+}
+

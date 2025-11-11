@@ -1,0 +1,199 @@
+<app-header></app-header>
+  <main>
+    <!-- hero section -->
+    <div class="container">
+      <section class="hero-section  ">
+        <div class="d-flex align-items-center">
+          <div>
+          <i class="fa-solid fa-pen-to-square me-2 fa-2x text-primary"></i>
+          </div>
+          
+          <div class="text-start heading">
+            <h2 class="mb-0">Your Item</h2>
+            <p class="description">Share your item with the
+              community</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- form section -->
+    <div class="container">
+      <section class="itemForm-section d-flex justify-content-center align-items-center">
+        <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="w-100" >
+          <div class="row g-2 mt-0 ">
+
+            <!-- Left Side: Form -->
+            <div class="col-lg-6 col-md-6 mt-0">
+              <div class="card border-0">
+                <div class="card-body p-5 pt-0 pb-0">
+                  <h4 class="mb-4 text-center">Item Details</h4>
+
+                  <div class=" d-flex justify-content-center align-items-center" style="cursor: pointer;">
+                    <label class="border  p-0 mb-3  d-block cursor-pointer text-center">
+                      <input type="file" class="d-none" (change)="onFileChange($event)" />
+
+                      <div *ngIf="previewImage; else uploadBox" class="image-box d-flex" style="cursor: pointer;">
+                        <img [src]="previewImage" class="img-fluid rounded" alt="preview" style="max-height: 200;" />
+                      </div>
+
+                      <ng-template #uploadBox>
+                        <div class="text-muted text-center p-3" style="cursor: pointer;">
+                          <i class="fa-solid fa-camera fs-2 m-3"></i>
+                          <p class="m-0">Add a Photo</p>
+                        </div>
+                      </ng-template>
+                    </label>
+                  </div>
+                  <!-- Title -->
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Item Title *</label>
+                    <input type="text" class="form-control input-outline-color" placeholder="DSLR Camera, Bike, Clothes"
+                      formControlName="title" (input)="capitalizeFirstLetter('title')" style="cursor: pointer;"/>
+                       <small class="text-danger" *ngIf="itemForm.get('title')?.errors?.['maxlength']">
+                      Maximum 25 digits are allowed.
+                    </small>
+                  </div>
+
+                  <!-- Description -->
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Description </label>
+                    <textarea rows="3" class="form-control input-outline-color" placeholder="Describe your item..."
+                      formControlName="description" (input)="capitalizeFirstLetter('description')" style="cursor: pointer;"></textarea>
+                    <small class="text-danger" *ngIf="itemForm.get('description')?.errors?.['maxlength']">
+                      Maximum 200 digits are allowed.
+                    </small>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+                   
+            <div class="col-lg-6 col-md-6 mt-0">
+              <div class="card border-0">
+                <div class="card-body p-5 pt-0 pb-2">
+                  <div class="row mb-3">
+                    
+                    <div class="col-lg-6  col-md-12 mb-3">
+                      <label class="form-label fw-bold">Category *</label>
+                      <div class="dropdown w-100">
+  <button
+    class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+    type="button"
+    id="categoryDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false">
+    {{ selectedCategoryName || 'Select Category' }}
+  </button>
+
+  <ul class="dropdown-menu w-100"
+      aria-labelledby="categoryDropdown"
+      style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+    <li *ngFor="let c of categories">
+      <a class="dropdown-item"
+         (click)="selectCategory(c)">
+        {{ c.name }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+                    </div>
+
+                    <!-- Item Condition -->
+                   <div class="col-lg-6 col-md-12">
+  <label class="form-label fw-bold">Item Condition *</label>
+  <div class="dropdown w-100">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+      type="button"
+      id="conditionDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
+      {{ selectedCondition || 'Select Condition' }}
+    </button>
+
+    <ul class="dropdown-menu w-100" aria-labelledby="conditionDropdown">
+      <li *ngFor="let c of conditions">
+        <a class="dropdown-item" (click)="selectCondition(c)">
+          {{ c }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+                  </div>
+
+                  <div class="row mb-3">
+                    <!-- Price -->
+                    <div class="col-lg-6 col-md-12 mb-3">
+                      <label class="form-label fw-bold">Price (₹) *</label>
+                      <input type="number" class="form-control input-outline-color" formControlName="price" placeholder="Choose Price" style="cursor: pointer;"/>
+                    </div>
+
+                   <!-- Price Unit -->
+<div class="col-lg-6 col-md-12">
+  <label class="form-label fw-bold">Price Unit *</label>
+  <div class="dropdown w-100">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+      type="button"
+      id="priceUnitDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
+      {{ selectedUnit || 'Select Unit' }}
+    </button>
+
+    <ul class="dropdown-menu w-100" aria-labelledby="priceUnitDropdown">
+      <li><a class="dropdown-item" (click)="selectUnit('hour')">Per Hour</a></li>
+      <li><a class="dropdown-item" (click)="selectUnit('day')">Per Day</a></li>
+      
+    </ul>
+  </div>
+</div>
+
+                  </div>
+
+                  <div class="row mb-3">
+                    <!-- Additional Details -->
+                    <div class="col-md-12">
+                      <label for="additionalDetails" class="form-label fw-bold">Additional Information</label>
+                      <textarea id="additionalDetails" class="form-control input-outline-color" rows="3"
+                        (input)="capitalizeFirstLetter('additionalDetails')"
+                        placeholder="Add any extra information about item..." formControlName="additionalDetails" style="cursor: pointer;">
+                        </textarea>
+                      <small class="text-danger" *ngIf="itemForm.get('additionalDetails')?.errors?.['maxlength']">
+                        Maximum 500 digits are allowed.
+                      </small>
+
+                    </div>
+                  </div>
+
+                  <h6>Tips for Success</h6>
+                  <ul class="small text-muted">
+                    <li>Add a clear, well-lit photo</li>
+                    <li>Write detailed descriptions</li>
+                    <li>Set fair pricing</li>
+                    <li>Respond quickly to requests</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-end align-items-center mt-3">
+                <button type="submit" class="btn btn-success w-50 " style="cursor: pointer;">
+                  DONE
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+  <app-footer></app-footer>

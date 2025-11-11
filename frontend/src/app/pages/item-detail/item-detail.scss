@@ -1,0 +1,108 @@
+
+
+main {
+  flex: 1; /* Footer को नीचे push करेगा */
+  padding-top: 70px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+section {
+  margin: 50px ;
+
+}
+
+/* Already in your component CSS */
+app-footer {
+  margin-top: auto; /* This works well in this Flex container */
+    flex-shrink: 0;
+
+}
+.container {
+  font-family: Arial, sans-serif;
+  padding: 0;
+}
+
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+.content {
+  word-wrap: break-word;   /* Purane browsers ke liye support */
+  overflow-wrap: break-word; /* Modern browsers ke liye */
+  white-space: normal;      /* Text ko wrap hone deta hai */
+}
+
+
+.image-box {
+ width: 100%;
+  height: 300px;              /* 🔹 Fixed height */
+  display: flex;
+  justify-content: center;    /* image ko horizontally center karega */
+  align-items: center;        /* image ko vertically center karega */
+  background-color: #fbfbfb;  /* optional light background */
+  border-radius: 8px;         /* optional rounded corners */
+  overflow: hidden;
+    position: relative;
+      padding: 10px;            
+  box-sizing: border-box; 
+   border: 1px solid rgb(215, 215, 215);
+
+     img {
+    width: 100%;            /* image width ko box se bahar na jane de */
+  height: 100%;           /* image height ko box ke andar rakhe */
+  object-fit: contain;
+  object-position: center;
+}
+}
+
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+background-color: red;
+    object-fit: cover;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 576px) {
+
+.image-box {
+ width: 100%;
+  height: 250px;              /* 🔹 Fixed height */
+  display: flex;
+  justify-content: center;    /* image ko horizontally center karega */
+  align-items: center;        /* image ko vertically center karega */
+  background-color: #fbfbfb;  /* optional light background */
+  border-radius: 8px;         /* optional rounded corners */
+  overflow: hidden;
+    position: relative;
+      padding: 10px;            
+  box-sizing: border-box; 
+   border: 1px solid rgb(215, 215, 215);
+
+     img {
+    width: 100%;            /* image width ko box se bahar na jane de */
+  height: 100%;           /* image height ko box ke andar rakhe */
+  object-fit: contain;
+  object-position: center;
+}
+}
+}
+
+

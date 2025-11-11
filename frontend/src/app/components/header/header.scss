@@ -1,0 +1,138 @@
+ @use "variables" as *;
+
+ $primary-green: #2ac52a;
+ $light-gray: #f8f9fa;
+ $text-dark: #333;
+ $text-muted: #6c757d;
+ $transition: all 0.3s ease;
+
+ .navbar-brand {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+
+   .brand-icon-box {
+     width: 50px;
+     height: 50px;
+     border-radius: 30%;
+     overflow: hidden;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: rgb(42, 197, 42);
+
+     .brand-icon {
+       color: white;
+       font-size: 25px;
+     }
+   }
+
+   .brand-text {
+     h5 {
+       font-size: 1.6rem;
+       font-weight: 600;
+     }
+
+     p {
+       font-size: 0.85rem;
+       color: #6c757d;
+     }
+   }
+ }
+
+ .navbar-toggler {
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+ }
+
+ .navbar-nav {
+   margin: 0 auto;
+   display: flex;
+   align-items: center;
+
+   .nav-item {
+     margin-right: 1rem;
+
+   }
+
+   .nav-link {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     font-weight: 500;
+     font-size: 16px;
+     color: #333;
+     transition: color 0.3s ease;
+
+     &:hover {
+       color: $background-gray;
+       background: linear-gradient(135deg, $secondary-green, $primary-green);
+       border-radius: 5px;
+       cursor: pointer;
+     }
+
+     .nav-icon {
+       font-size: 18px;
+     }
+   }
+ }
+
+ .user-avatar {
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   overflow: hidden;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   background: red;
+   color: white;
+   font-weight: bold;
+   font-size: 18px;
+
+   img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
+
+   .avatar-fallback {
+     width: 100%;
+     height: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-weight: bold;
+     font-size: 18px;
+     color: white;
+     background-color: black;
+   }
+ }
+
+ /* RESPONSIVE DESIGN */
+
+
+
+ @media (min-width: 992px) {
+   .navbar-nav .nav-item {
+     margin-right: 2.5rem;
+   }
+ }
+
+ @media (max-width: 991.98px) {
+   .navbar-nav .nav-item {
+     width: 100%;
+     display: block !important;
+     margin: 0 27.5px;
+     background-color: white;
+   }
+
+   .navbar-nav .nav-item .nav-link {
+     color: black !important;
+     padding-left: 15px;
+   }
+
+ }

@@ -1,0 +1,35 @@
+# Node modules (backend + frontend)
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+**/.env
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Angular specific
+.frontend/.angular/cache
+.angular/
+
+# VSCode settings
+.vscode/
+
+# Temporary files
+temp/
+*.tmp
+
+backend/uploads/
+

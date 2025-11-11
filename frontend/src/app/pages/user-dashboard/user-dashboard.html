@@ -1,0 +1,373 @@
+<app-header></app-header>
+<main>
+  <div class="container">
+
+    <!-- hero section -->
+    <div class="container">
+      <section class="hero-section  ">
+        <div class="d-flex align-items-center">
+          <div>
+            <i class="fa-solid fa-user-shield me-2 fa-2x text-primary"></i>
+
+          </div>
+          <div class="text-start heading">
+            <h2 class="mb-0">Dashboard</h2>
+            <p *ngIf="userStoreService.getCurrentUser()() as user" class="description">Welcome back, {{user.name}}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- card length count section -->
+    <div class="container ">
+      <section class="card-section mt-4">
+        <div class="admin-cards">
+          <div class="row">
+
+            <div class=" col-md-4 m-0 ">
+              <div class="card overflow-hidden">
+                <div class="card-body ">
+                  <h5 class="card-title">My Items</h5>
+                  <p class="card-text">{{items.length}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 m-0">
+              <div class="card overflow-hidden">
+                <div class="card-body ">
+                  <h5 class="card-title">Incoming Requests</h5>
+                  <p class="card-text">{{userRequests.length}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 m-0">
+              <div class="card overflow-hidden ">
+                <div class="card-body">
+                  <h5 class="card-title">My Requests</h5>
+                  <p class="card-text">{{myRequests.length}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- tab-section -->
+    <div class="container">
+      <section class="tab-section  mt-4">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+          <li class="nav-item d-flex justify-content-center align-items-center  nav-link active p-2" role="tab"
+            id="btn1-tab" data-bs-toggle="tab" data-bs-target="#btn1-content" role="presentation">
+            My Listings
+          </li>
+          <li class="nav-item d-flex justify-content-center align-items-center nav-link p-2" role="tab" id="btn2-tab"
+            data-bs-toggle="tab" data-bs-target="#btn2-content" role="presentation">
+            Incoming Requests
+          </li>
+          <li class="nav-item d-flex justify-content-center align-items-center nav-link p-2" role="tab" id="btn3-tab"
+            data-bs-toggle="tab" data-bs-target="#btn3-content" role="presentation">
+            My Requests
+          </li>
+        </ul>
+
+        <!-- tab-content  -->
+        <div class="tab-content mt-4 p-3" id="myTabContent">
+
+          <!-- My Listings -->
+          <div class="tab-pane fade show active" id="btn1-content" role="tabpanel">
+            <h3>All Items</h3>
+
+            <ng-container *ngIf="items && items.length > 0; else noItems">
+              <ng-container *ngFor="let item of items">
+                <div class="card w-100 m-0 mb-2">
+                  <div class="card-body ">
+
+                    <div class="row align-items-center justify-content-center " style="align-items: stretch;">
+                      <!-- Left side image -->
+                      <div class="col-md-3 p-0 h-100 ">
+                        <div class="d-flex align-items-center image-box justify-content-center p-0 ">
+                          <img [src]="item.photo" alt="Product Image" class="rounded img-fluid">
+
+                          <div class="badge-container">
+                            <span class="badge rounded-pill text-bg-success">{{ item.category?.name }} </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Middle content -->
+                      <div class="col-md-8 h-100">
+                        <div class="d-flex text-center align-items-center mt-0">
+                          <div class=" p-0 ">
+                            <h5> {{item.title}}</h5>
+                            <div (click)="onDeleteItem(item._id)" class="delete-icon"><i
+                                class="fa-solid fa-trash fs-4"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style="line-height: 1;" class="mt-2">
+                          <strong>₹<span style="color: green;">{{ item.price }}</span><small
+                              style="color: rgb(130, 131, 130);">/{{ item.unit}}</small></strong>
+                        </div>
+
+                        <div class="mt-1" style="line-height: 1;">
+                          <small>({{item.owner.location}}) {{item.owner.city}}, {{item.owner.state}}</small>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-start">
+                          <button class="btn btn-success me-2 mt-3 " (click)="goToItemDetail(item._id)">
+                            View Item
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <!-- Message when no items exist -->
+            <ng-template #noItems>
+              <p class="text-muted mt-3 text-center fs-5">No items yet.</p>
+            </ng-template>
+
+          </div>
+
+          <!-- Incoming Requests -->
+          <div class="tab-pane fade" id="btn2-content" role="tabpanel">
+            <h3>Incoming Requests</h3>
+
+            <ng-container *ngIf="userRequests && userRequests.length > 0; else noUserRequests">
+              <ng-container *ngFor="let req of userRequests">
+                <ng-container *ngIf="req.itemId">
+                  <div class="card w-100 mb-2" [ngClass]="{'returned-card': req.status === 'returned'}">
+                    <div class="card-body">
+
+                      <div class="row d-flex align-items-center justify-content-center" style="align-items: stretch;">
+                        <!-- Left side image -->
+                        <div class="col-md-3 p-0 h-100" (click)="goToItemDetail(req.itemId._id)">
+                          <div class="d-flex align-items-center image-box justify-content-center p-0">
+                            <img [src]="req.itemId.photo" alt="Product Image" class="rounded img-fluid">
+                            <div class="badge-container">
+                              <span class="badge rounded-pill text-bg-danger">{{req.status}}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Middle content -->
+                        <div class="col-md-8 h-100 ">
+                          <div class="d-flex text-center align-items-center  mt-4">
+                            <ng-container>
+                              <div class="user-avatar">
+                                <img *ngIf="req.renterId.photo; else showInitial" [src]="req.renterId.photo"
+                                  alt="Product Image" class="rounded img-fluid">
+                                <ng-template #showInitial>
+                                  <div class="avatar-fallback">
+                                    {{ req.renterId.email.charAt(0).toUpperCase() }}
+                                  </div>
+                                </ng-template>
+                              </div>
+                            </ng-container>
+                            <div class=" p-0 ms-2">
+                              <h5> {{req.renterId.name}}</h5>
+                              <div (click)="deleteRequest(req._id, 'owner')" class="delete-icon"><i
+                                  class="fa-solid fa-trash fs-4"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="mt-1" style="line-height: 1;">
+                            <p class=" m-0 p-0">Duration: {{req.duration}} {{req.itemId.unit}}</p>
+                            <small>Total Price: ₹ {{req.totalPrice}}</small>
+                          </div>
+
+                          <div style="line-height: 1;" class="mt-2">
+                            <h6 class="card-title m-0 p-0">{{req.itemId.title}}</h6>
+                            <strong>₹<span style="color: green;"> {{ req.itemId.price }}</span><small
+                                style="color: rgb(130, 131, 130);">/{{ req.itemId.unit}}</small></strong>
+                          </div>
+
+                          <div class="d-flex align-items-center justify-content-start">
+                            <button class="btn btn-primary me-2 mt-4" (click)="goToProfile(req.renterId._id)">
+                              View Profile
+                            </button>
+
+                            <button class="btn btn-success me-2 mt-4" *ngIf="req.status === 'Pending'"
+                              (click)="acceptRequest(req._id)">
+                              Approved
+                            </button>
+
+                            <button class="btn btn-danger  me-2 mt-4" *ngIf="req.status === 'Pending'"
+                              (click)="rejectRequest(req._id)">
+                              Reject
+                            </button>
+
+                            <button class="btn btn-success me-2 mt-4" *ngIf="req.status === 'Active'"
+                              (click)="openProofModal('delivery')">
+                              Confirm Delivery
+                            </button>
+
+                            <app-proof-modal [isOpen]="isProofModalOpen" [requestId]="req._id"
+                              [receiverEmail]="req.renterId.email" [actionType]="'delivery'"
+                              (closeModal)="isProofModalOpen = false"
+                              (onProofSuccess)="updateRequestAfterProof(req._id, modalActionType)"></app-proof-modal>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div *ngIf="req.status === 'Pending'" class="text-center">
+                          <hr />
+                          <p class="text-info">⏳ This request is waiting for your response.</p>
+                          <p>Check the renter’s profile before approving or rejecting the request. <br>
+                            Once you approve, the renter will contact you to confirm pickup or delivery.
+                          </p>
+                        </div>
+
+                        <!-- ACTIVE -->
+                        <div *ngIf="req.status === 'Active'" class="text-center">
+                          <hr />
+                          <p class="text-danger">✅ You’ve approved this request!</p>
+                          <p>The renter has been notified. Coordinate directly for handover and payment in person.<br>
+                            Ensure both parties verify the item condition before finalizing.</p>
+                        </div>
+
+                        <!-- delivered -->
+                        <div *ngIf="req.status === 'delivered'" class="text-center">
+                          <hr />
+                          <p class="text-success">📦 The renter has confirmed that the item has been delivered
+                            successfully.</p>
+                          <p>
+                            Please make sure the renter has received the item in good condition and the payment has been
+                            completed safely in person.
+                            <br> 💡 Tip: Keep a photo or short video as proof of delivery and condition.
+                          </p>
+                          <p>
+                            💡 Important: Once the rental period ends, you’ll be able to mark the item as
+                            <strong>Returned</strong> when the renter gives it back.
+                          </p>
+                        </div>
+
+                        <!-- RETURNED -->
+                        <div *ngIf="req.status === 'returned'" class="text-center">
+                          <hr />
+                          <p class="text-secondary"> The item has been successfully returned 📦
+                            <br>Inspect the item condition before marking the request as completed.
+                          </p>
+                          <p>Thank you for completing the rental!</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <!-- Message when no items exist -->
+            <ng-template #noUserRequests>
+              <p class="text-muted mt-3 text-center fs-5">No User requests yet.</p>
+            </ng-template>
+          </div>
+
+          <!-- My Requests -->
+          <div class="tab-pane fade" id="btn3-content" role="tabpanel">
+            <h3>My Requests</h3>
+
+            <ng-container *ngIf="myRequests && myRequests.length > 0; else noMyRequests">
+              <ng-container *ngFor="let req of myRequests">
+                <ng-container *ngIf="req.itemId">
+                  <div class="card w-100 mb-2" [ngClass]="{'returned-card': req.status === 'returned'}">
+                    <div class="card-body">
+
+                      <div class="row d-flex align-items-center justify-content-center" style="align-items: stretch;">
+                        <!-- Left side image -->
+                        <div class="col-md-3  p-0 h-100 " (click)="goToItemDetail(req.itemId._id)">
+                          <div class="d-flex align-items-center image-box justify-content-center p-0">
+                            <img [src]="req.itemId.photo" alt="Product Image" class="rounded img-fluid">
+                            <div class="badge-container">
+                              <span class="badge rounded-pill text-bg-danger">{{req.status}}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Middle content -->
+                        <div class="col-md-8 h-100">
+
+                          <div class="d-flex text-center align-items-center mt-4 ">
+                            <ng-container>
+                              <div class="user-avatar">
+                                <img *ngIf="req.ownerId.photo; else showInitial" [src]="req.ownerId.photo"
+                                  alt="Product Image" class="rounded img-fluid">
+                                <ng-template #showInitial>
+                                  <div class="avatar-fallback">
+                                    {{ req.ownerId.email.charAt(0).toUpperCase() }}
+                                  </div>
+                                </ng-template>
+                              </div>
+                            </ng-container>
+                            <div class=" p-0 ms-2">
+                              <h5> {{req.ownerId.name}}</h5>
+                              <div (click)="deleteRequest(req._id, 'renter')" class="delete-icon"><i
+                                  class="fa-solid fa-trash fs-4"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="mt-1" style="line-height: 1;">
+                            <p class=" m-0 p-0">Duration: {{req.duration}} {{req.itemId.unit}}</p>
+                            <small>Total Price: ₹ {{req.totalPrice}}</small>
+                          </div>
+
+                          <div style="line-height: 1;" class="mt-2">
+                            <h6 class="card-title m-0 p-0">{{req.itemId.title}}</h6>
+                            <strong>₹<span style="color: green;">{{ req.itemId.price }}</span><small
+                                style="color: rgb(130, 131, 130);">/{{ req.itemId.unit}}</small></strong>
+                          </div>
+
+                          <!--bottom section-->
+                          <div class="d-flex align-items-center justify-content-start">
+                            <button class="btn btn-primary me-2 mt-3" (click)="goToItemDetail(req.itemId._id)">
+                              View Item
+                            </button>
+                            <button *ngIf="req.status === 'Active' || req.status === 'delivered'"
+                              class="btn btn-danger me-2 mt-3 " (click)="goToProfile(req.ownerId._id)">
+                              View Profile
+                            </button>
+                            <button *ngIf="req.status === 'delivered'" class="btn btn-success me-2 mt-3 "
+                              (click)="openProofModal('return')">
+                              Confirm Return
+                            </button>
+                            <app-proof-modal [isOpen]="isProofModalOpen" [requestId]="req._id"
+                              [receiverEmail]="req.ownerId.email" [actionType]="modalActionType"
+                              (closeModal)="isProofModalOpen = false"></app-proof-modal>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <!-- Message when no items exist -->
+            <ng-template #noMyRequests>
+              <p class="text-muted mt-3 text-center fs-5">No My requests yet.</p>
+            </ng-template>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </div>
+</main>

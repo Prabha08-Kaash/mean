@@ -1,0 +1,116 @@
+.footer-section {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .center-box {
+    width: 100%;
+    max-width: 90%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+
+    .logo-box {
+      width: 30px;
+      height: 30px;
+      border-radius: 30%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      object-fit: cover;
+      box-sizing: border-box;
+
+      i {
+        color: white;
+        font-size: 15px;
+      }
+    }
+
+    .logo-name {
+      font-size: 1.3rem;
+    }
+
+    .website-links {
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .description {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+
+    .copyright-content {
+      font-size: 0.7rem;
+    }
+
+    hr {
+      color: white;
+      width: 80%;
+      margin: 15px auto;
+      border: none;
+      border-top: 1px solid white;
+    }
+  }
+
+}
+
+/*  Responsive design */
+@media (max-width: 576px) {
+
+  .footer-section {
+    background-color: black;
+
+    .center-box {
+      width: 100%;
+      max-width: 90%;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      padding: 10px;
+
+      .logo-box {
+        width: 22px;
+        height: 22px;
+        border-radius: 30%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        box-sizing: border-box;
+
+        i {
+          color: white;
+          font-size: 12px;
+        }
+      }
+
+      .logo-name {
+        font-size: 1rem;
+      }
+
+      .website-links {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+      }
+
+      .description {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+      }
+
+      .copyright-content {
+        font-size: 0.6rem;
+      }
+
+      hr {
+        color: white;
+        width: 80%;
+      }
+    }
+
+  }
+
+}

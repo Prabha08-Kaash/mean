@@ -1,0 +1,173 @@
+<app-header></app-header>
+<main>
+
+  <!-- Hero section -->
+  <div class="full-width-hero-container d-flex justify-content-center align-items-center ">
+    <div class="container d-flex justify-content-center align-items-center p-0 text-center">
+      <section class="hero-section">
+        <div class="center-box d-flex justify-content-center align-items-center p-4 text-center">
+
+          <div class="hero-content">
+            <h1 class="hero-title">
+              Rent & Lend Within Your <span class="highlight">Community</span>
+            </h1>
+            <p class="hero-subtitle fs-5">
+              Share items with neighbors, save money, and build stronger connections.
+              From books to bikes, tools to gadgets - everything you need is nearby.
+            </p>
+            <div class="hero-buttons">
+              <a (click)="goToBrowseItem()" class="button browseItem-button">
+                <i class="fas fa-search btn-icon"></i>
+                Browse Items
+              </a>
+              <a (click)="goToAddItem()" class="button addItem-button">
+                <i class="fas fa-plus btn-icon"></i>
+                Lend an Item
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Category Section -->
+  <div class="container">
+    <section class="categories-section">
+      <div class="categories-header">
+        <h2 class="categories-title">Browse by Category</h2>
+        <p class="categories-subtitle fs-5">
+          Find exactly what you're looking for in these popular categories
+        </p>
+      </div>
+
+      <div class="categories-carousel-wrapper">
+        <button class="carousel-arrow left" (click)="scrollLeft()" aria-label="Scroll left">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <div class="categories-carousel" #carousel>
+          <div class="category-card" *ngFor="let category of categories; let i = index"
+            (click)="goToBrowseItem(category._id)" tabindex="0" role="button"
+            aria-label="Browse {{ category.name }} category">
+            <div class="category-icon-box" [ngStyle]="{'background-color': boxColors[i % boxColors.length]}">
+              <i class="fas fa-{{ category.icon }} mt-1" [ngStyle]="{'color': iconColors[i % iconColors.length]}"></i>
+            </div>
+            <p class="category-name mt-1">{{ category.name }}</p>
+          </div>
+        </div>
+
+        <button class="carousel-arrow right" (click)="scrollRight()" aria-label="Scroll right">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!--Item Section -->
+  <div class="full-width-item-container d-flex justify-content-center align-items-center ">
+    <div class="container d-flex justify-content-center align-items-center p-0  text-center">
+      <section class="item-section">
+
+        <div class="item-section-header text-center">
+          <h2 class="item-section-title">Fresh Recommendation</h2>
+          <p class="item-section-subtitle fs-5">Newly created items available for rent in your community
+          </p>
+        </div>
+
+        <div class="item-section-content">
+          <div class="row w-100 gy-4  items">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-6 p-2" *ngFor="let item of items | slice:0:8">
+              <div class="card " (click)="goToItemDetail(item._id)" style="cursor: pointer;">
+                <div class="image-box">
+                  <img [src]="item.photo || 'assets/default-image.png'" alt="Item Image">
+
+                  <div class="badge-box">
+                    <span class="badge rounded-pill text-bg-success">{{ item.category?.name }} </span>
+                  </div>
+                </div>
+                <div class="item-card-details  text-start p-2" style="line-height: 1;">
+                  <h5 class="item-title m-0">{{ item.title }}</h5>
+                  <small class="item-location">{{item.owner?.city}}, {{ getStateName(item.owner?.state)}}</small>
+                </div>
+                <h6 class="mb-0 text-start">
+                  <small class="posted-label text-muted ms-2 owner-name">Posted by: <strong>{{ item.owner?.name
+                      }}</strong> </small>
+                </h6>
+                <div class="item-card-footer d-flex justify-content-between align-items-center p-2">
+                  <strong>₹<span style="color: green;"> {{ item.price }}</span><small
+                      style="color: rgb(130, 131, 130);">
+                      /{{ item.unit}}</small></strong>
+                                    <span class="item-createdAt">{{ getRelativeDate(item.createdAt) }}</span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class=" mt-4">
+          <button type="button" class="btn btn-outline-success" (click)="goToBrowseItem()">View All Items</button>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!--About Section -->
+  <div class="container">
+    <section class="about-section">
+
+      <div class="about-section-header text-center">
+        <h2 class="about-section-title">How It Works</h2>
+        <p class="about-section-subtitle fs-5">Simple steps to start sharing with your community</p>
+      </div>
+
+      <div class="about-section-content">
+        <div class="row g-1 w-100">
+          <div class="col-lg-4 col-md-4 ">
+            <div class="icon-box" style="background-color: rgb(190, 238, 190);">
+              <i class="fa-brands fa-searchengin" style="color: rgb(35, 155, 35);"></i>
+            </div>
+            <div class=" text-center text-start p-2">
+              <h5 class=" m-0">Browse & Search</h5>
+            </div>
+            <div class=" d-flex justify-content-between align-items-center p-2">
+              <p>Find items you need in your community. Filter by category, location, and price.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="icon-box" style="background-color: rgb(238, 190, 190);">
+              <i class="fa-regular fa-clock" style="color: rgb(197, 44, 44);"></i>
+            </div>
+            <div class=" text-center text-start p-2">
+              <h5 class="m-0">Request to Rent</h5>
+            </div>
+            <div class=" d-flex justify-content-between align-items-center p-2">
+              <p>Send a request with your desired dates. Connect directly with item owners.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="icon-box" style="background-color:  rgb(190, 215, 238);">
+              <i class="fa-regular fa-star" style="color:   rgb(46, 122, 194);"></i>
+            </div>
+            <div class=" text-center text-start p-2">
+              <h5 class=" m-0">Enjoy & Return</h5>
+            </div>
+            <div class=" d-flex justify-content-between align-items-center p-2">
+              <p>Use the item for your needs, then return it safely. Build community trust.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+</main>
+<app-footer></app-footer>

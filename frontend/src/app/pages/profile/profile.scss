@@ -1,0 +1,233 @@
+main {
+  margin-top: 80px;
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+
+.hero-section {
+  padding-top: 30px;
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+}
+
+
+.itemCard {
+  border: 1px solid rgb(225, 225, 225);
+  background-color: #fafafb;
+  border-radius: 20px;
+  padding: 10px 0;
+
+  .cards-grid {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr); /* default: 2 cards for mobile & tab */
+  justify-content: stretch; /* stretch full width */
+
+  @media (min-width: 992px) { /* laptop and above */
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  }
+}
+
+
+
+  .card {
+        border: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        width: 100%;
+        height: auto;
+
+        &:hover {
+          transform: translateY(-6px);
+          box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-box {
+          aspect-ratio: 4/4;
+          width: 100%;
+          height: 150px;
+          border-radius: 12px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          object-fit: cover;
+          position: relative;
+          padding: 10px;
+          box-sizing: border-box;
+          margin: 0 auto;
+
+          img {
+            width: 100%;
+            /* image width ko box se bahar na jane de */
+            height: 100%;
+            /* image height ko box ke andar rakhe */
+            object-fit: cover;
+            object-position: center;
+          }
+
+          .badge-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            font-weight: 400;
+
+            .badge {
+              display: inline-block;
+              padding: 6px 8px;
+              font-size: 0.7rem;
+            }
+          }
+
+          .item-createdAt {
+            position: absolute;
+            bottom: 13px;
+            right: 15px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: rgb(239, 234, 234);
+          }
+
+        }
+      }
+
+}
+
+.item-title,
+.item-location,
+.owner-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.user-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden; // important: image ya letter ke bahar na jaaye
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: red; // default background agar image nahi hai
+  color: white;
+  font-weight: bold;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // image ko circle me properly fit kare
+  }
+
+  .avatar-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 80px;
+    color: white;
+    background-color: #007bff; // fallback color
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    padding-top: 30px;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+  }
+
+     .card {
+        width: 100%;
+        max-width: 160px;
+        margin: 0 auto;
+        box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.08);
+height: auto;
+        .image-box {
+          aspect-ratio: 4 / 3;
+          width: 100%;
+          height: 150px;
+
+          .badge-box {
+            top: 10px !important;
+            left: 15px !important;
+            padding: 0 !important;
+            border-radius: 40px;
+
+            .badge {
+              padding: 3px 5px !important;
+              font-size: 0.6rem !important;
+              border-radius: 4px !important;
+            }
+          }
+
+         
+
+        }
+
+        .item-card-details {
+          h5 {
+            font-size: 0.9rem;
+          }
+
+          small {
+            font-size: 0.7rem;
+          }
+        }
+
+        h6 {
+          font-size: 0.75rem;
+        }
+
+        .item-card-footer {
+          padding: 0.3rem 0.6rem;
+          font-size: 0.8rem;
+
+          button {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+          }
+        }
+      }
+}
+
+/*  Desktop (large screens) */
+@media (min-width: 992px) {
+
+  .item-section {
+
+    .items {
+      .card {
+        max-width: 260px;
+
+        .image-box {
+          aspect-ratio: 4 / 3;
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}

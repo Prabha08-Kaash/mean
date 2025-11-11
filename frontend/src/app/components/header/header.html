@@ -1,0 +1,120 @@
+<nav class="navbar fixed-top navbar-expand-lg d-flex align-items-center bg-white">
+  <div class="container">
+
+    <!-- logo brand -->
+    <a class="navbar-brand d-flex align-items-center me-0 me-lg-3">
+      <div class="brand-icon-box">
+        <i class="fas fa-home brand-icon "></i>
+      </div>
+      <div class="brand-text ms-2 " style="line-height: 1;">
+        <h5 class="m-0 fs-3">GharSeRent</h5>
+        <p class="m-0 text-muted small">Community Marketplace</p>
+      </div>
+    </a>
+
+    <!-- toggle button -->
+    <div class="d-flex align-items-center me-auto ms-auto d-lg-none">
+      <button class="navbar-toggler d-lg-none d-sm-block " type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarLinks">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- profile dropdown for small screen -->
+    <div class="d-flex align-items-center d-lg-none">
+      <ng-container *ngIf="userStoreService.getCurrentUser()() as user">
+        <div class=" dropdown">
+          <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div (click)="toggleProfilePanel()" class="user-avatar">
+              <img *ngIf="user.photo; else showInitial" [src]="user.photo" alt="User Photo" />
+            </div>
+            <ng-template #showInitial>
+              <div class="avatar-fallback">
+                {{ user.email.charAt(0).toUpperCase() }}
+              </div>
+            </ng-template>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end p-1">
+            <li style="cursor: pointer;"><a class="dropdown-item" (click)="goToProfile()"><i class="fa-solid fa-user me-1"></i> My Profile</a>
+            </li>
+            <li style="cursor: pointer;"><a class="dropdown-item" *ngIf="user?.role === 'admin'" (click)="goToAdminDashboard()"><i
+                  class="fa-solid fa-shield-halved me-1"></i> Admin Panel</a></li>
+            <li style="cursor: pointer;"><a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-share-from-square me-1"></i> Sign
+                Out</a></li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- navbar -->
+    <div class="collapse navbar-collapse" id="navbarLinks">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" (click)="goToHome()">
+          <a class="nav-link active" aria-current="page">
+            <i class="fas fa-home nav-icon"></i> Home</a>
+        </li>
+        <li class="nav-item" (click)="goToBrowseItem()">
+          <a class="nav-link">
+            <i class="fas fa-search nav-icon"></i> Browse Items
+          </a>
+        </li>
+        <li class="nav-item" (click)="goToAddItem()">
+          <a class="nav-link">
+            <i class="fas fa-plus nav-icon"></i> Add Item</a>
+        </li>
+        <li class="nav-item" (click)="goToUserDashboard()" *ngIf="authStoreService.isLoggedIn()">
+          <a class="nav-link">
+            <i class="fas fa-tachometer-alt nav-icon"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item" (click)="login()" *ngIf="!authStoreService.isLoggedIn()">
+          <a class="nav-link">
+            <i class="fas fa-tachometer-alt nav-icon"></i> Sign In</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- profile dropdown for large screen -->
+    <div class="d-none d-lg-flex align-items-center ms-auto">
+      <ng-container *ngIf="userStoreService.getCurrentUser()() as user">
+        <div class=" dropdown">
+          <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div (click)="toggleProfilePanel()" class="user-avatar">
+              <img *ngIf="user.photo; else showInitial" [src]="user.photo" alt="User Photo" />
+            </div>
+            <ng-template #showInitial>
+              <div class="avatar-fallback">
+                {{ user.email.charAt(0).toUpperCase() }}
+              </div>
+            </ng-template>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end p-2">
+            <div class="panel-header d-flex justify-content-center align-items-center">
+              <div (click)="toggleProfilePanel()" class="user-avatar">
+                <img *ngIf="user.photo; else showInitial" [src]="user.photo" alt="User Photo" />
+              </div>
+              <ng-template #showInitial>
+                <div class="avatar-fallback">
+                  {{ user.email.charAt(0).toUpperCase() }}
+                </div>
+              </ng-template>
+
+              <div class="ms-2">
+                <h5 class="m-0 fw-semibold">{{ user.name}}</h5>
+                <h6 class="text-muted"> {{user.email}}</h6>
+              </div>
+            </div>
+
+            <li style="cursor: pointer;"><a class="dropdown-item" (click)="goToProfile()"><i class="fa-solid fa-user "></i> My Profile</a>
+            </li>
+            <li style="cursor: pointer;"><a class="dropdown-item" *ngIf="user?.role === 'admin'" (click)="goToAdminDashboard()"><i
+                  class="fa-solid fa-shield-halved "></i> Admin Panel</a></li>
+            <li style="cursor: pointer;"><a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-share-from-square "></i> Sign
+                Out</a></li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</nav>

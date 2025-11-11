@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<main>
+  <div class="form-wrapper">
+    <div class="card shadow-sm">
+      <div class="card-body">
+
+        <h4 class="mb-4 text-center">Create Category</h4>
+
+        <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+          <!-- Name -->
+          <div class="mb-3">
+            <label class="form-label">Name *</label>
+            <input type="text" class="form-control"
+              placeholder="e.g. DSLR Camera, Mountain Bike"
+              formControlName="name" />
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label class="form-label">Description *</label>
+            <textarea rows="3" class="form-control"
+              placeholder="Describe your item, its condition, any special instructions..."
+              formControlName="description"></textarea>
+          </div>
+
+          <!-- Icon -->
+          <div class="mb-3">
+            <label class="form-label">Icon *</label>
+            <input type="text" class="form-control"
+              placeholder="e.g. icon" formControlName="icon" />
+          </div>
+
+          <!-- Button -->
+          <button type="submit" class="btn btn-success w-100">
+            Save Category
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</main>

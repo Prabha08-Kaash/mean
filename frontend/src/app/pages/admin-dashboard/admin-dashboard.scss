@@ -1,0 +1,188 @@
+main {
+  margin-top: 80px;
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+.hero-section {
+  padding-top: 30px;
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+}
+
+.card-section {
+
+  .admin-cards {
+    margin: 10px 0;
+
+    .card {
+      width: 100%;
+      height: 7rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      /* keeps text to the start (left) */
+      text-align: flex-start;
+      /* ensures text alignment left */
+      padding-left: 1.5rem;
+      /* adds a little left spacing */
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+    }
+
+  }
+}
+
+.tab-section {
+
+  .nav-tabs {
+    background-color: rgb(240, 239, 239);
+    border: 2px solid rgb(187, 184, 184);
+
+    .nav-link {
+      color: grey;
+
+      &.active {
+        color: black;
+        border: 2px solid #ccc;
+        border-bottom: 4px solid #ccc; // ke
+      }
+    }
+  }
+
+  .tab-content {
+    border: 1px solid rgb(194, 194, 194);
+    background-color: #fafafb;
+    border-radius: 20px;
+  }
+}
+
+  .tab-content {
+    border: 2px solid black;
+
+    .user-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: red;
+      object-fit: cover;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        justify-content: center;
+        align-items: center;
+        object-position: center;
+
+      }
+    }
+
+
+
+.image-box {
+  width: 150px;
+  height: 150px;        
+  display: flex;
+  justify-content: center;    
+  align-items: center;       
+  background-color: #fbfbfb;  
+  border-radius: 8px;      
+  overflow: hidden;
+    position: relative;
+   border: 1px solid rgb(215, 215, 215);
+    margin: 10px;
+
+     img {
+  width: 100%;     
+  height: 100%;           
+  object-fit: cover;
+  object-position: center;
+    display: block;       
+
+  }
+
+  .badge-container {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: white;
+  font-size: 0.8rem;
+  padding: 2px 2px;
+  font-weight: 600;
+
+  .badge {
+  display: inline-block;
+  padding: 5px 6px;
+  font-size: 0.6rem;
+  color: white;
+    }
+  }
+}
+
+  }
+
+.delete-icon {
+  position: absolute;
+  top: 10px;            
+  right: 20px;          
+  color: gray;    
+  font-size: 1.5rem;   
+  padding: 2px;
+}
+
+
+// responsive 
+@media (max-width: 576px) {
+  .hero-section {
+    padding-top: 30px;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+
+  .card-section {
+    .admin-cards {
+      .card {
+        height: 4rem;
+
+
+        h5 {
+          font-size: 1.1rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+
+        }
+      }
+    }
+  }
+
+}

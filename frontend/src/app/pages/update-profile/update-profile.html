@@ -1,0 +1,245 @@
+<app-header></app-header>
+<main>
+
+  <div class="container">
+
+    <!-- hero section -->
+    <div class="container">
+      <section class="hero-section  ">
+        <div class="d-flex align-items-center">
+          <div>
+<i class="fa-solid fa-user-pen me-2 fa-2x text-primary"></i>
+          </div>
+          <div class="text-start heading">
+            <h2 class="mb-0">Update Profile</h2>
+            <p class="description">Share your item with the community</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- form section -->
+    <div class="container">
+      <section class="profileForm-section d-flex justify-content-center align-items-center">
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="w-100">
+
+          <div class="row g-2 mt-0 ">
+            <!-- Left Side: Form -->
+            <div class="col-lg-6 col-md-6 mt-0">
+              <div class="card border-0">
+                <div class="card-body p-5 pt-0 pb-0">
+                  <h4 class="mb-4 text-center">Complete Your Profile</h4>
+
+                  <h5 class="mb-4 fw-bold text-center">Your Photo</h5>
+                  <div class=" d-flex justify-content-center align-items-center">
+
+                    <label class="border  p-0 mb-3 cursor-pointer text-center">
+                      <input type="file" class="d-none" (change)="onFileChange($event)" />
+
+                      <div *ngIf="previewImage; else uploadBox" class="image-box" style="cursor: pointer;">
+                        <img [src]="previewImage" class="img-fluid rounded" alt="preview" style="max-height: 200;" />
+                      </div>
+
+                      <ng-template #uploadBox>
+                        <div class="text-muted text-center p-3" style="cursor: pointer;">
+                          <i class="fa-solid fa-camera fs-2 m-3"></i>
+                          <p class="m-0">Add a Photo</p>
+                        </div>
+                      </ng-template>
+                    </label>
+                  </div>
+
+                  <!-- Name -->
+                  <div class="  mb-3">
+                    <label class="form-label fw-bold">Name *</label>
+                    <input type="text" class="form-control input-outline-color" placeholder="e.g. DSLR Camera, Mountain Bike"
+                      formControlName="name" (input)="capitalizeFirstLetter('name')" style="cursor: pointer;" />
+                  </div>
+
+                  <!-- Email -->
+                  <div class="  mb-3">
+                    <label class="form-label fw-bold">Email *</label>
+                    <input type="text" class="form-control input-outline-color" placeholder="e.g. DSLR Camera, Mountain Bike"
+                      formControlName="email" style="cursor: pointer;" />
+                  </div>
+
+                  <!-- Your Bio -->
+                  <div class="  mb-3">
+                    <label for="bio" class="form-label fw-bold">Your Bio </label>
+                    <textarea id="bio" class="form-control input-outline-color" rows="3"
+                      placeholder="Write a short bio (2-3 lines about yourself)..."
+                      (input)="capitalizeFirstLetter('bio')" formControlName="bio" style="cursor: pointer;">
+                  </textarea>
+                    <small class="text-danger" *ngIf="profileForm.get('bio')?.errors?.['maxlength']">
+                      Maximum 150 digits are allowed.
+                    </small>
+                  </div>
+
+                  <!-- States -->
+                  <div class="row mb-3">
+                    <div class="col-lg-6  col-md-12  mb-3">
+                      <label class="form-label fw-bold">State *</label>
+
+                      <div class="dropdown w-100">
+                        <button
+                          class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                          type="button" id="stateDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ getStateName(selectedStateCode) || 'Select State' }}
+                        </button>
+
+                        <ul class="dropdown-menu w-100" aria-labelledby="stateDropdown"
+                          style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                          <li *ngFor="let s of states">
+                            <a class="dropdown-item" (click)=" onStateChange({ target: { value: s.iso2 } });
+                                  profileForm.get('state')?.setValue(s.iso2);
+                                selectedStateCode = s.iso2;">
+                              {{ s.name }}
+                            </a>
+                          </li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+
+                    <!-- city -->
+                    <div class=" col-lg-6  col-md-12 ">
+                      <label class="form-label fw-bold">City *</label>
+
+                      <div class="dropdown w-100">
+                        <button
+                          class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                          type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ selectedCity || 'Select City' }}
+                        </button>
+
+                        <ul class="dropdown-menu w-100" aria-labelledby="cityDropdown"
+                          style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                          <li *ngFor="let c of cities">
+                            <a class="dropdown-item" (click)="onCityChange({ target: { value: c.name } });
+                              profileForm.get('city')?.setValue(c.name);
+                             selectedCity = c.name;">
+                              {{ c.name }}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Photo -->
+            <div class="col-lg-6 col-md-6 mt-0">
+              <div class="card border-0">
+                <div class="card-body p-5 pt-0 pb-2">
+
+                  <div class="row mb-3">
+                    <!-- pincode -->
+                    <div class="col-lg-6  col-md-12 mb-3 ">
+                      <label class="form-label fw-bold">Pincode *</label>
+
+                      <div class="dropdown w-100">
+                        <button
+                          class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                          type="button" id="pincodeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ selectedPincode|| 'choose pincode' }}
+                        </button>
+
+                        <ul class="dropdown-menu w-100" aria-labelledby="pincodeDropdown"
+                          style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">
+                          <li *ngFor="let p of pincodes">
+                            <a class="dropdown-item" (click)="profileForm.get('pincode')?.setValue(p);
+                        selectedPincode = p;">
+                              {{ p }}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="col-lg-6  col-md-12 mb-3 ">
+                      <label class="form-label fw-bold">Contact Number *</label>
+                      <input type="text" class="form-control input-outline-color" placeholder="Enter Your Mobile Number"
+                        formControlName="phone" style="cursor: pointer;"/>
+                      <small class="text-danger"
+                        *ngIf="profileForm.get('phone')?.errors?.['maxlength'] && profileForm.get('phone')?.touched">
+                        Maximum 10 digits are allowed.
+                      </small>
+                    </div>
+                  </div>
+
+                  <!-- Pickup Location -->
+                  <div class=" col-md-12 mb-3">
+                    <label class="form-label fw-bold"> Location *</label>
+                    <input type="text" class="form-control input-outline-color" placeholder="e.g. College Library Gate, Main Market"
+                      formControlName="location" (input)="capitalizeFirstLetter('location')" style="cursor: pointer;"/>
+
+                    <small class="text-danger"
+                      *ngIf="profileForm.get('location')?.errors?.['maxlength'] && profileForm.get('location')?.touched">
+                      Maximum 40 digits are allowed.
+                    </small>
+                  </div>
+
+                  <div class=" col-md-6" *ngIf="isAdmin">
+                    <label fw-bold>Role</label>
+                    <select formControlName="role">
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="d-flex justify-content-end align-items-center mt-3">
+                    <button type="submit" class="btn btn-success w-50">
+                      Save Profile
+                    </button>
+                  </div>
+
+
+                  <form *ngIf="changePasswordForm" [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()"
+                    class="w-100">
+                    <div class="mt-5 mb-1">
+                      <label class="form-label">Current Password *</label>
+                      <input type="password" formControlName="currentPassword" class="form-control" style="cursor: pointer;">
+                    </div>
+
+                    <div class="row mb-3 mt-1">
+                      <div class="col-lg-6  col-md-12 mb-3">
+                        <label class="form-label fw-bold mt-2">New Password *</label>
+                        <input type="password" formControlName="newPassword" class="form-control" style="cursor: pointer;">
+                      </div>
+                      <div class="col-lg-6  col-md-12 mb-3">
+                        <label class="form-label fw-bold mt-2">Confirm Password *</label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" style="cursor: pointer;">
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" [disabled]="changePasswordForm.invalid" style="cursor: pointer;">
+                      Change Password
+                    </button>
+                  </form>
+
+                  <div *ngIf="message" class="alert mt-3"
+                    [ngClass]="{'alert-success': success, 'alert-danger': !success}">
+                    {{ message }}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </form>
+      </section>
+    </div>
+
+  </div>
+  
+</main>
+<app-footer></app-footer>
