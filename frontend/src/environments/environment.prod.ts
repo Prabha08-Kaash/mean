@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://project-backend-sq6l.onrender.com/api'  
+  apiUrl: 'https://mean-backend-rlmb.onrender.com/api'  
 };
