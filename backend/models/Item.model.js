@@ -48,14 +48,7 @@ const ItemSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
-        expireAt: {
-            type: Date,
-            default: function () {
-                // 30 days from creation
-                return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-            },
-            index: { expires: '0s' }, // TTL index - auto delete when expires
-        },
+     
 
     });
 const Item = mongoose.model("Item", ItemSchema)
